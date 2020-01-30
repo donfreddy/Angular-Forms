@@ -1,0 +1,72 @@
+
+<div class="container pt-5">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <h2 class="text-center mb-5">Reactive forms</h2>
+
+      <form [formGroup]="form" (ngSubmit)="login()">
+
+        <div *ngIf="form.errors" class="alert alert-danger">Le nom d'utilisateur ou le mot de pass est incorrect.</div>
+
+        <div class="form-group">
+          <label>Nom de l'utilisateur</label>
+          <input formControlName="username" type="text" class="form-control" name="fname">
+
+          <!-- Validation -->
+          <div *ngIf="form.get('username').pending">Verification en cours ...</div>
+
+          <div class="alert alert-danger" *ngIf="form.get('username').touched && !form.get('username').valid">
+            <div *ngIf="form.get('username').errors.required" >
+              le nom de l'utilisateur est obligatoire
+            </div>
+            <div *ngIf="form.get('username').errors.minlength" >
+              le nom de l'utilisateur doit avoir au moins {{ form.get('username').errors.minlength.requiredLength }} caracteres
+            </div>
+            <div *ngIf="form.get('username').errors.cannotContainSpace" >
+              le nom d'utilisateur ne peut pas contenir d'espace.
+            </div>
+            <div *ngIf="form.get('username').errors.shouldBeUnique">
+              Ce nom est indisponible.
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Email</label>
+          <input formControlName="email" type="text" class="form-control" name="email">
+
+          <!-- Validation -->
+          <div class="alert alert-danger" *ngIf="email.touched && !email.valid">
+            <div *ngIf="email.errors.required">
+              l'addresse E-mail est obligatoire
+            </div>
+            <div *ngIf="email.errors.email" >
+              Entrer une addresse email valide svp
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Mot de passe</label>
+          <input formControlName="password" type="password" class="form-control" name="password">
+
+          <!-- Validation -->
+          <div class="alert alert-danger" *ngIf="password.touched && !password.valid">
+            <div *ngIf="password.errors.required" >
+              le mot de passe est obligatoire
+            </div>
+            <div *ngIf="password.errors.minlength" >
+              le mot de passe doit avoir au moins {{ password.errors.minlength.requiredLength }} caracteres
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <button class="btn btn-secondary">Se connecter</button>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>

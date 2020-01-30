@@ -1,0 +1,94 @@
+
+<div class="container pt-5">
+  <div class="row">
+    <div class="col-md-10 offset-md-1">
+      <h2 class="text-center mb-5">Template driven forms</h2>
+
+      <form #f="ngForm" (ngSubmit)="submit(f)">
+
+        <div class="form-group">
+          <label>Prenom</label>
+          <input ngModel  #fname="ngModel" name="fname" (change)="log(fname)" type="text" class="form-control"  required minlength="3">
+
+          <!-- Validation -->
+          <div class="alert alert-danger" *ngIf="fname.touched && !fname.valid">
+            <div *ngIf="fname.errors.required" >le prenom est obligatoire</div>
+            <div *ngIf="fname.errors.minlength" >le prenom doit avoir au moins {{ fname.errors.minlength.requiredLength }} caracteres</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Nom</label>
+          <input ngModel #lname="ngModel" name="lname" type="text" class="form-control"  required minlength="3">
+
+          <!-- Validation -->
+           <div class="alert alert-danger" *ngIf="lname.touched && !lname.valid">
+            <div *ngIf="lname.errors.required" >le nom est obligatoire</div>
+            <div *ngIf="lname.errors.minlength" >le nom doit avoir au moins {{ lname.errors.minlength.requiredLength }} caracteres</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Email</label>
+          <input ngModel #email="ngModel" name="email" type="email" class="form-control" required>
+
+          <!-- Validation -->
+          <div class="alert alert-danger" *ngIf="email.touched && !email.valid">
+            <div *ngIf="email.errors.required" >l'addresse E-mail est obligatoire</div>
+            <div *ngIf="email.errors.email" >Entrer une addresse email valide svp</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Mot de passe</label>
+          <input ngModel #password="ngModel" name="password" type="password" class="form-control" required minlength="4" maxlength="8">
+
+          <!-- Validation -->
+          <div class="alert alert-danger" *ngIf="password.touched && !password.valid">
+            <div *ngIf="password.errors.required" >le mot de passe est obligatoire</div>
+            <div *ngIf="password.errors.minlength" >le mot de passe doit avoir au moins {{ password.errors.minlength.requiredLength }} caracteres</div>
+          </div>
+        </div> 
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" ngModel name="isSubscribed"> Abonnez-vous a notre liste de diffusion.
+          </label>
+        </div>
+
+        <div class="form-group mt-3">
+          <button class="btn btn-primary mb-3" [disabled]="!f.valid">Envoyer</button>
+        </div>
+
+        <hr>
+
+        <!-- Table de donnees -->
+        <h2 class="text-center">Resultat</h2>
+        <div class="table-responsive mt-3">
+          <table class="table table-bordered table-responsive-sm table-responsive-md table-responsive-lg">
+            <thead>
+              <tr class="text-center">
+                <th scope="col">Prenom</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Email</th>
+                <th scope="col">password</th>
+                <th scope="col">Subscription</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{f.value.fname}}</td>
+                <td>{{f.value.lname}}</td>
+                <td>{{email.value}}</td>
+                <td>{{password.value}}</td>
+                <td class="text-center">{{f.value.isSubscribed}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>
